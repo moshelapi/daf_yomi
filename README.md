@@ -7,7 +7,7 @@ This project enables real-time monitoring of code and packages in containers run
 Follow these steps to use the program:
 
 1. Clone the repository:
-   git clone https://github.com/mosheilan942/working_demo_for_hot_reload_with_docker_compose
+   git clone https://github.com/moshelapi/daf_yomi.git
 
 2. You don't have to install the dependencies in order
    to see the real-time listening, but if you want to,
