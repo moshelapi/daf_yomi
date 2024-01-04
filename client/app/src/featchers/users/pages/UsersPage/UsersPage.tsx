@@ -8,7 +8,7 @@ import Slider from '@mui/material/Slider';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-export default function HomePage() {
+export default function UsersPage() {
   const Navigate = useNavigate()
   const { loading, error, data } = useQuery(GET_ALL_USERS);
   console.log(data);

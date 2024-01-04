@@ -20,6 +20,6 @@ export function addUserDistance(users: User[], lat: number, lon: number) {
 
 export function findMinDistance(users: User[]|null){
   if (users){
-  const distances = users.map(user => user.distance);
+  const distances  = users.map(user => user.distance);
   return Math.min(...distances)
 }}

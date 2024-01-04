@@ -1,49 +1,37 @@
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import CardMedia from '@mui/material/CardMedia';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
+import { StyledCardMedia, StyledTypography } from '../../styled-component/styled-global';
+import { StyleUserCard, StyledCardContent,StyledBox } from './style.usercard';
+import defolteImage from '../../../../assets/images/image.png'
 
-const UserCard = ({ user }: any) => {
+
+
+
+
+
+
+const UserCard = ({ user }:any) => {
   return (
-    <Grid item xs={12} sm={6} md={4} lg={3}>
-      <Card sx={{ maxWidth: 345, m: 2, boxShadow: 3 }}>
-        {user.image && (
-          <CardMedia
-            component="img"
-            height="140"
-            image={user.image}
+    <StyleUserCard>
+          <StyledCardMedia
+            src={user.image || defolteImage}
             alt={`${user.firstName} ${user.lastName}`}
           />
-        )}
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+      
+        <StyledCardContent>
+          <StyledTypography font='24px' >
             {user.firstName} {user.lastName}
-          </Typography>
-          <Box color="text.secondary">
-            <Typography variant="body2">
-              עיר: {user.city}
-            </Typography>
-            <Typography variant="body2">
-              רחוב: {user.street}
-            </Typography>
-            <Typography variant="body2">
-              כותרת: {user.title}
-            </Typography>
-            <Typography variant="body2">
-              זמן: {user.time}
-            </Typography>
-            <Typography variant="body2">
-              גיל: {user.age}
-            </Typography>
-            <Typography variant="body2">
+          </StyledTypography>
+          <StyledBox>
+            <StyledTypography>עיר: {user.city}</StyledTypography>
+            <StyledTypography>רחוב: {user.street}</StyledTypography>
+            <StyledTypography>כותרת: {user.title}</StyledTypography>
+            <StyledTypography>זמן: {user.time}</StyledTypography>
+            <StyledTypography>גיל: {user.age}</StyledTypography>
+            <StyledTypography>
               מרחק: {user.distance ? `${user.distance} ק"מ` : 'N/A'}
-            </Typography>
-          </Box>
-        </CardContent>
-      </Card>
-    </Grid>
+            </StyledTypography>
+          </StyledBox>
+        </StyledCardContent>
+    </StyleUserCard>
   );
 };
 
