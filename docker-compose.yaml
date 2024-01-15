@@ -7,34 +7,36 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile
-    develop:
-      watch:
-        - action: rebuild
-          path: ./server/app/package.json
+    # develop:
+    #   watch:
+    #     - action: rebuild
+    #       path: ./server/app/package.json
     ports: 
-      - "4000:4000"
+      - "3000:3000"
     networks:
       - app-network
     environment:
-      CONNECTION_STRING: mongodb://mongodb:27017/myWeatherApp
+      # CONNECTION_STRING: mongodb://mongodb:27017/myWeatherApp
       REDIS_HOST: redis
       REDIS_PORT: 6379
-      REDIS_PASSWORD: eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+      # REDIS_PASSWORD: eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
     volumes:
-      - ./server/app/dist:/server/dist
+      - ./server/app/dist:/server/app/dist
     depends_on:
       - redis
       - postgres
+    command: npm run start:dev
+    
 
   client:
     container_name: client-demo
     build:
       context: ./client
       dockerfile: Dockerfile
-    develop:
-      watch:
-      - action: rebuild
-        path: ./client/app/package.json
+    # develop:
+    #   watch:
+    #   - action: rebuild
+    #     path: ./client/app/package.json
     ports:
       - 8002:8002
     tty: true
@@ -57,7 +59,7 @@ services:
       environment:
         POSTGRES_USER: moshe
         POSTGRES_PASSWORD: moshe206
-        POSTGRES_DB: conect
+        POSTGRES_DB: messi
       ports:
         - "5432:5432"
       volumes:
@@ -80,6 +82,6 @@ networks:
 volumes:
   postgres_data:
   redis_data:
-#     cache:
+    # cache:
 #       driver: local
 #     mongodata:

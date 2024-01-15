@@ -1,0 +1,40 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type UserType {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  email: String!
+  password: String!
+  latitude: Float!
+  longitude: Float!
+  time: String!
+  title: String!
+  city: String!
+  street: String!
+  age: Int!
+}
+
+type Query {
+  getAllUsers: [UserType!]!
+  user(id: Int!): UserType!
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserInput!): UserType!
+  updateUser(updateUserInput: UpdateUserInput!): UserType!
+  removeUser(id: Int!): UserType!
+}
+
+input CreateUserInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateUserInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
