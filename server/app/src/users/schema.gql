@@ -18,6 +18,7 @@ type UserType {
 }
 
 type Query {
+  messsssssssi: String!
   getAllUsers: [UserType!]!
   user(id: Int!): UserType!
 }

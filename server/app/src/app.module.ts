@@ -14,7 +14,7 @@ import { User } from './users/entities/user.entity';
       {isGlobal: true}) ,
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'postgres',
+      host: process.env.POSTGRES_HOST,
       port:5432,
       username: 'moshe',
       password: 'moshe206',
@@ -24,12 +24,12 @@ import { User } from './users/entities/user.entity';
   }),
     UsersModule,
     GraphqlModule,
-    CacheModule.register({ 
-      isGlobal: true,
-      store: redisStore,
-      host: process.env.REDIS_HOST,
-      port: process.env.REDIS_PORT,
-    }),
+    // CacheModule.register({ 
+    //   isGlobal: true,
+    //   store: redisStore,
+    //   host: process.env.REDIS_HOST,
+    //   port: process.env.REDIS_PORT,
+    // }),
   
   ],
   controllers: [],

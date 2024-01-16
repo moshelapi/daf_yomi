@@ -14,6 +14,11 @@ export class UsersResolver {
     return this.usersService.create(createUserInput);
   }
 
+  @Query(() => String,{ name: 'mesi' })
+  messi() {
+    return 'messi agever'
+  }
+
   @Query(() => [UserType], { name: 'getAllUsers' })
   findAll() {
     return this.usersService.findAll();
