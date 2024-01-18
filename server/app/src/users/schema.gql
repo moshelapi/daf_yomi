@@ -3,7 +3,7 @@
 # ------------------------------------------------------
 
 type UserType {
-  id: ID!
+  id: Float!
   firstName: String!
   lastName: String!
   email: String!
@@ -18,24 +18,41 @@ type UserType {
 }
 
 type Query {
-  messsssssssi: String!
   getAllUsers: [UserType!]!
-  user(id: Int!): UserType!
+  getUserById(id: Int!): UserType!
 }
 
 type Mutation {
   createUser(createUserInput: CreateUserInput!): UserType!
-  updateUser(updateUserInput: UpdateUserInput!): UserType!
-  removeUser(id: Int!): UserType!
+  updateUser(updateUserInput: UpdateUserInput!): String!
+  removeUser(id: Int!): String!
 }
 
 input CreateUserInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  firstName: String!
+  lastName: String!
+  email: String!
+  password: String!
+  latitude: Float!
+  longitude: Float!
+  time: String!
+  title: String!
+  city: String!
+  street: String!
+  age: Int!
 }
 
 input UpdateUserInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  firstName: String
+  lastName: String
+  email: String
+  password: String
+  latitude: Float
+  longitude: Float
+  time: String
+  title: String
+  city: String
+  street: String
+  age: Int
   id: Int!
 }

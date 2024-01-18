@@ -11,7 +11,7 @@ services:
       watch:
         - action: sync
           path: ./server/app/
-          target: /app
+          target: /server
         - action: rebuild
           path: ./server/app/package.json
     ports: 
@@ -29,12 +29,14 @@ services:
       POSTGRES_DB: messi
 
       # REDIS_PASSWORD: eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
-    # volumes:
-    #   - ./server/app/src:/server/src
+    volumes:
+      - ./server/app/src:/server/src
+    
+
     depends_on:
       - redis
       - postgres
-    # command: npm run start:dev
+    command: npm run start:dev
     
 
   client:
