@@ -1,6 +1,6 @@
 import { StyledCardMedia, StyledTypography } from '../../styled-component/styled-global';
-import { StyleUserCard, StyledCardContent,StyledBox } from './style.usercard';
-import defolteImage from '../../../../assets/images/image.png'
+import { StyleUserCard, StyledCardContent,StyledBox } from '../../styled-component/style.usercard';
+import defolteImage from '../../../../../assets/images/image.png'
 
 
 

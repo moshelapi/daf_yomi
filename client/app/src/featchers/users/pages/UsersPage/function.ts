@@ -21,5 +21,11 @@ export function addUserDistance(users: User[], lat: number, lon: number) {
 export function findMinDistance(users: User[]|null){
   if (users){
   const distances  = users.map(user => user.distance);
-  return Math.min(...distances)
+  return Math.min(distances as unknown as number)
+}}
+
+export function findMinAndMaxAge(users: User[]){
+  if (users){
+  const ages  = users.map(user => user.age);
+  return Math.min(ages as unknown as number), Math.max(ages as unknown as number)
 }}

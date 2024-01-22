@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-
 interface StyledTypographyProps {
     font?: string; 
   }
@@ -9,6 +8,9 @@ interface StyledTypographyProps {
     width?: string;
     height?: string;
   };
+
+
+  
   
   export const CenteredDiv = styled.div<DivProps>`
     display: flex;
@@ -18,6 +20,11 @@ interface StyledTypographyProps {
     width: ${({ width }) => width||'auto'}; 
   `;
   
+export const Title = styled.h1`
+  font-size: 24px;
+  text-align: center;
+  `
+
 export const StyledTypography = styled.p<StyledTypographyProps>`
   font-size: ${( {font} ) => font || '14px'};
   margin-bottom: 12px;
@@ -55,6 +62,6 @@ export const StyledButton = styled.button`
   }
 
   &:focus {
-    outline: none; /* Removes the default focus outline */
+    outline: none; 
   }
 `;

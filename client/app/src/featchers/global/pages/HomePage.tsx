@@ -1,18 +1,19 @@
-import { CenteredDiv, StyledButton } from "../styled-component/styled-global";
+import {  useNavigate } from "react-router-dom";
+import { CenteredDiv, StyledButton } from "../styles/styled-component/styled-global";
 import { Container, HomePageTop } from "./styled.homePage";
 
 export default function  HomePage (){
 
-
+    const Navigate = useNavigate();
 
 
     return(
         <Container>
             <HomePageTop>
                 <CenteredDiv style={{marginBottom:'50px'}} width="80vw" height="100px">
-                    <StyledButton>
+                    <StyledButton onClick={()=> Navigate('/userPage')}>
                         מצא חברותא
-                    </StyledButton>
+                    </StyledButton >
                     <StyledButton>
                         מצא שיעור
                     </StyledButton>
