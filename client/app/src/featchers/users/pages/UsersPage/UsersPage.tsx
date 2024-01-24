@@ -1,28 +1,41 @@
 import  { useState, useEffect } from 'react';
-import { useQuery } from "@apollo/client";
 import { Location, User } from "../../utils/interfaces/interface";
-import { addUserDistance, findMinDistance } from "./function";
-import { GET_ALL_USERS } from "../../../global/apolloclient/graphQL_querys";
-import { Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { addUserDistance } from "./function";
 import UserCard from '../../../global/styles/components/cards/UserCard';
 import { UserCardContainer } from '../../../global/styles/styled-component/style.userCardsConteiner';
 import { Title } from '../../../global/styles/styled-component/styled-global';
-import { Slider } from '../../../global/styles/components/cards/Slider';
 import { SideNav } from '../../../global/styles/styled-component/style.sideNav';
 import Filters from './filters/Filters';
 import { useAppSelector } from '../../../../rtk/hooks';
+import axios from 'axios';
 
 export default function UsersPage() {
-  
-  const Navigate = useNavigate()
-  const { loading, error, data } = useQuery(GET_ALL_USERS);
+ 
   const [location, setLocation] = useState<Location | null>(null);
   const [users, setUsers] = useState<User[] | null>(null);
-  const [distanceRange, setDistanceRange] = useState([0, 1000000]);
-  // const dataa = useAppSelector((state) => state.users);
-  // console.log(dataa);
+  const [distanceRange, setDistanceRange] = useState<number>(1000);
+  const [age , setAge] = useState<number>(100)
+  const {users:data,loading,error}= useAppSelector((state) => state.users);
+  const [messi , setMessi] = useState()
+  
+  useEffect(() => {
+    const fetchData = async()=>{
 
+      try{
+          const response = await axios.get('https://data.gov.il/api/3/action/datastore_search', {
+         params: {
+          resource_id: '5c78e9fa-c2e2-4771-93ff-7f400a12f7ba',}})
+           if (response.status === 200){
+             setUsers(response.data.result.records)
+            console.log(messi);}
+         }
+      catch (error){
+             console.log(error)
+      }
+    }
+    fetchData()
+  
+  }, [messi]);
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -36,21 +49,16 @@ export default function UsersPage() {
 
   useEffect(() => {
     if (location && data) {
-      const updatedUsers = addUserDistance(data.getAllUsers, location.latitude, location.longitude)
-        .filter(user => user.distance >= distanceRange[0] && user.distance <= distanceRange[1]);
+      const updatedUsers = addUserDistance(data, location.latitude, location.longitude)
+        .filter(user => user.distance as number <= distanceRange && 
+          user.age <= age);
         setUsers(updatedUsers);
       
     }
-  }, [ data, distanceRange]);
-
-  function handleDistanceChange(_event: Event, newValue: number | number[]) {
-    setDistanceRange(newValue as number[]);
-  }
-
+  }, [ data, distanceRange,age]);
 
   if (loading) return "Loading...";
-  if (error) return `Error! ${error.message}`;
-
+  if (error) return `Error! ${error}`;
   return (
     <>
     <div style={{}}>
@@ -62,7 +70,8 @@ export default function UsersPage() {
     <div style={{display: "flex"}}>
        <SideNav>
         <Title>סנן</Title>
-       {users ? <Filters users={users}/>  :""}
+       {users ? <Filters dis={distanceRange} setDis={setDistanceRange}
+        users={users} age={age} setAge={setAge} />  :""}
        </SideNav>
       <UserCardContainer>
         {users  ? users.map((user: User) => (    

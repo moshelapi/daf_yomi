@@ -1,9 +1,11 @@
 import MyRouter from "./featchers/global/router/myRouters";
 import { fetchUsers } from "./featchers/users/slices/usersSlice";
+import { useAppDispatch } from "./rtk/hooks";
 
 
 function App() {
-  fetchUsers()
+  const dispatch = useAppDispatch()
+  dispatch(fetchUsers())
   return(
   
 

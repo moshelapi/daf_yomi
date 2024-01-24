@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { useQuery } from '@apollo/client';
 import { User } from '../utils/interfaces/interface';
 import { GET_ALL_USERS } from '../../global/apolloclient/graphQL_querys';
+import client from '../../global/apolloclient/clientConect';
 
 
 interface UserState {
@@ -16,14 +16,19 @@ const initialState: UserState = {
   error: null,
 };
 
-export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
-    console.log('giuygli');
-  const { loading, error, data } = useQuery(GET_ALL_USERS);
-
-  if (loading) return [];
-  if (error) throw new Error(error.message);
-  return data.users; 
-});
+export const fetchUsers = createAsyncThunk('users/fetchUsers', async (_, { rejectWithValue }) => {
+    try {
+      const { data, loading, error } = await client.query({
+        query: GET_ALL_USERS,
+      });
+      if (loading) return [];
+      if (error) throw error;
+      return data.getAllUsers; 
+    } catch (error : any) {
+      return rejectWithValue(error.message);
+    }
+  });
+  
 
 const userSlice = createSlice({
   name: 'users',

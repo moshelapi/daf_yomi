@@ -1,62 +1,49 @@
-import { useState } from "react";
+import { Slider } from "@mui/material";
+import { findMinAndDistance } from "../function";
 import { User } from "../../../utils/interfaces/interface";
 
-export default function Filters ({users}:{users:User[]}){
+interface Props {
+  setDis: (range: number ) => void;
+  dis: number ;
+  users: User[] ;
+  age: number ;
+  setAge: (age: number) => void;
+}
 
-    const [filter, setFilter] = useState('');
-    const [filterType, setFilterType] = useState<'age' | 'title'>('age');
-  
-    const filteredUsers = users.filter((users) => {
-      if (filterType === 'age') {
-        return users.age.toString() === filter;
-      } else if (filterType === 'title') {
-        return users.title.toLowerCase().includes(filter.toLowerCase());
-      }
-      return true;
-    });
-  
-    return (
-      <div>
-        <div>
-          <label htmlFor="filterType">Filter by:</label>
-          <select
-            id="filterType"
-            value={filterType}
-            onChange={(e) => setFilterType(e.target.value as 'age' | 'title')}
-          >
-            <option value="age">Age</option>
-            <option value="title">Title</option>
-          </select>
-        </div>
-  
-        <div>
-          <label htmlFor="filterValue">
-            {filterType === 'age' ? 'Enter Age:' : 'Enter Title:'}
-          </label>
-          <input
-            id="filterValue"
-            type="text"
-            value={filter}
-            onChange={(e) => setFilter(e.target.value)}
-          />
-        </div>
-  
-        <ul>
-          {filteredUsers.map((user) => (
-            <li key={user.id}>
-              <div>
-                <img src={user.image || 'default.jpg'} alt={user.firstName} />
-                <h2>
-                  {user.firstName} {user.lastName}
-                </h2>
-                <p>Email: {user.email}</p>
-                <p>Age: {user.age}</p>
-                <p>Title: {user.title}</p>
-                {/* Add more user details as needed */}
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
-  };
+export default function Filters({ dis, setDis, users, age ,setAge }: Props) {
+  const [_min, _max] = findMinAndDistance(users)
+
+  function handleDistanceChange(_event: Event, newValue: number | number[]) {
+    setDis(newValue as number);
+  }
+
+  function handleAgeChange(_event: Event, newValue: number | number[]) {
+    setAge(newValue as number);
+  }
+
+  return (
+    <div>
+      <h2>
+        מרחק
+      </h2>
+        <Slider
+          value={dis}
+          onChange={handleDistanceChange}
+          valueLabelDisplay="on"
+          min={0}
+          max={1000}
+        />
+      <h2>
+        גיל
+      </h2>
+        <Slider
+          value={age}
+          onChange={handleAgeChange}
+          valueLabelDisplay="on"
+          min={0}
+          max={100}
+        />
+
+    </div>
+  );
+};

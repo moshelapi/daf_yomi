@@ -1,3 +1,4 @@
+import { aG } from "vitest/dist/reporters-rzC174PQ.js";
 import { User } from "../../utils/interfaces/interface";
 
 function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
@@ -18,14 +19,18 @@ export function addUserDistance(users: User[], lat: number, lon: number) {
     distance: parseFloat(calculateDistance(lat, lon, user.latitude, user.longitude).toFixed(1))  }));
 }
 
-export function findMinDistance(users: User[]|null){
-  if (users){
-  const distances  = users.map(user => user.distance);
-  return Math.min(distances as unknown as number)
-}}
+export function findMinAndDistance(users: User[]): number []{
+  if (!users) return []
+  const distance  = users.map(user => user.distance) as number []
+  const min = Math.min(...distance)
+  const max = Math.max(...distance)
+  return [min , max]}
 
-export function findMinAndMaxAge(users: User[]){
-  if (users){
-  const ages  = users.map(user => user.age);
-  return Math.min(ages as unknown as number), Math.max(ages as unknown as number)
-}}
+
+export function findMinAndMaxAge(users: User[]): number[]{
+  if (!users) return []
+  const ages  = users.map(user => user.age)
+  const min = Math.min(...ages)
+  const max = Math.max(...ages)
+  return [min , max]
+}
